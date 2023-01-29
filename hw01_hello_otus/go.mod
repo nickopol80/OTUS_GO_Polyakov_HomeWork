@@ -1,4 +1,4 @@
-module github.com/OTUS_GO_Polyakov_HomeWork/hw01_hello_otus
+module github.com/nickopol80/OTUS_GO_Polyakov_HomeWork/hw01_hello_otus
 
 go 1.19
 
