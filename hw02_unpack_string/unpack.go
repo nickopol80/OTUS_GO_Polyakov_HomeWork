@@ -13,7 +13,6 @@ func Unpack(str string) (string, error) {
 	result := ""
 	lastChar := ""
 	counterNumber := 0
-	var err error
 
 	for i := 1; i <= len(runeString); i++ {
 		nextSymbol := runeString[i-1 : i]
@@ -22,12 +21,10 @@ func Unpack(str string) (string, error) {
 		if _, err := strconv.Atoi(string(nextSymbol)); err == nil {
 			counterNumber++
 			if counterNumber > 1 {
-				//panic(ErrInvalidString)
-				err = ErrInvalidString
+				panic(ErrInvalidString)
 				break
 			} else if lastChar == "" {
-				//panic(ErrInvalidString)
-				err = ErrInvalidString
+				panic(ErrInvalidString)
 				break
 			} else if string(nextSymbol) == "0" {
 				result = result[:len(result)-1]
@@ -51,5 +48,5 @@ func Unpack(str string) (string, error) {
 		}
 	}
 
-	return result, err
+	return result, nil
 }
