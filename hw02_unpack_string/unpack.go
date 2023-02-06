@@ -16,7 +16,7 @@ func Unpack(str string) (string, error) {
 	for i := 1; i <= len(runeString); i++ {
 		nextSymbol := runeString[i-1 : i]
 
-		//Проверка на число
+		// Проверка на число
 		if _, err := strconv.Atoi(string(nextSymbol)); err == nil {
 			counterNumber++
 			if counterNumber > 1 {
@@ -34,7 +34,6 @@ func Unpack(str string) (string, error) {
 			for ii := 1; ii < repeat; ii++ {
 				result += lastChar
 			}
-
 		} else {
 			counterNumber = 0
 			if nextSymbol[0] == '\n' {
