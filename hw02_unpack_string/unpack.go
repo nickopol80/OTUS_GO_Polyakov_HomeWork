@@ -19,12 +19,9 @@ func Unpack(str string) (string, error) {
 
 		if nextSymbolIsNumber {
 			counterNumber++
-			if counterNumber > 1 || lastChar == "" {
-				return "", ErrInvalidString
-			}
-			if string(nextSymbol) == "0" {
-				result = result[:len(result)-1]
-			}
+
+			checkForError(counterNumber, lastChar)
+			result = checkForZerro(string(nextSymbol), result)
 
 			repeat, _ := strconv.Atoi(string(nextSymbol))
 			for ii := 1; ii < repeat; ii++ {
@@ -45,11 +42,24 @@ func Unpack(str string) (string, error) {
 	return result, nil
 }
 
+func checkForZerro(s string, result string) string {
+	if s == "0" {
+		result = result[:len(result)-1]
+	}
+	return result
+}
+
+func checkForError(number int, char string) (string, error) {
+	if number > 1 || char == "" {
+		panic(ErrInvalidString)
+	}
+	return "", nil
+}
+
 // Проверка на число.
 func checkingForANumber(symbol []rune) bool {
 	if _, err := strconv.Atoi(string(symbol)); err == nil {
 		return true
 	}
-
 	return false
 }
