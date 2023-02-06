@@ -21,11 +21,9 @@ func Unpack(str string) (string, error) {
 		if _, err := strconv.Atoi(string(nextSymbol)); err == nil {
 			counterNumber++
 			if counterNumber > 1 {
-				panic(ErrInvalidString)
-				break
+				return "", ErrInvalidString
 			} else if lastChar == "" {
-				panic(ErrInvalidString)
-				break
+				return "", ErrInvalidString
 			} else if string(nextSymbol) == "0" {
 				result = result[:len(result)-1]
 				continue
