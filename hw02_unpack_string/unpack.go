@@ -1,9 +1,7 @@
-// package hw02unpackstring
-package main
+package hw02unpackstring
 
 import (
 	"errors"
-	"fmt"
 	"strconv"
 )
 
@@ -54,15 +52,4 @@ func checkingForANumber(symbol []rune) bool {
 	}
 
 	return false
-}
-
-func main() {
-	//fmt.Println(Unpack("a4bc2d5e"))
-	//fmt.Println(Unpack("abcd"))
-	fmt.Println(Unpack("3abc"))
-	//fmt.Println(Unpack("45"))
-	//fmt.Println(Unpack("aaa10b"))
-	//fmt.Println(Unpack("aaa0b"))
-	//fmt.Println(Unpack(""))
-	//fmt.Println(Unpack("d\n5abc"))
 }
