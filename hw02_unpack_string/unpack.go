@@ -22,10 +22,8 @@ func Unpack(str string) (string, error) {
 			if counterNumber > 1 || lastChar == "" {
 				return "", ErrInvalidString
 			}
-			if string(nextSymbol) == "0" {
-				result = result[:len(result)-1]
-			}
 
+			result = checkInZerro(string(nextSymbol), result)
 			repeat, _ := strconv.Atoi(string(nextSymbol))
 			for ii := 1; ii < repeat; ii++ {
 				result += lastChar
@@ -43,6 +41,13 @@ func Unpack(str string) (string, error) {
 	}
 
 	return result, nil
+}
+
+func checkInZerro(s string, result string) string {
+	if s == "0" {
+		return result[:len(result)-1]
+	}
+	return result
 }
 
 // Проверка на число.
