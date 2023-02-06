@@ -21,9 +21,11 @@ func Unpack(str string) (string, error) {
 			counterNumber++
 			if counterNumber > 1 {
 				return "", ErrInvalidString
-			} else if lastChar == "" {
+			}
+			if lastChar == "" {
 				return "", ErrInvalidString
-			} else if string(nextSymbol) == "0" {
+			}
+			if string(nextSymbol) == "0" {
 				result = result[:len(result)-1]
 				continue
 			}
