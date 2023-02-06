@@ -45,11 +45,10 @@ func Unpack(str string) (string, error) {
 	return result, nil
 }
 
-// Проверка на число
 func checkingForANumber(symbol []rune) bool {
 	if _, err := strconv.Atoi(string(symbol)); err == nil {
 		return true
-	} else {
-		return false
 	}
+
+	return false
 }
