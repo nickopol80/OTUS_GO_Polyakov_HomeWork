@@ -6,12 +6,12 @@ import (
 )
 
 var ErrInvalidString = errors.New("invalid string")
-var result string = ""
-var lastChar string = ""
-var counterNumber int = 0
 
 func Unpack(str string) (string, error) {
 	runeString := []rune(str)
+	result := ""
+	lastChar := ""
+	counterNumber := 0
 
 	for i := 1; i <= len(runeString); i++ {
 		nextSymbol := runeString[i-1 : i]
