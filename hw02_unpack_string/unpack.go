@@ -8,7 +8,6 @@ import (
 var ErrInvalidString = errors.New("invalid string")
 
 func Unpack(str string) (string, error) {
-	// Place your code here.
 	runeString := []rune(str)
 	result := ""
 	lastChar := ""
