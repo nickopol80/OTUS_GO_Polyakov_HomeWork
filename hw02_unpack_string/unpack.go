@@ -6,18 +6,18 @@ import (
 )
 
 var ErrInvalidString = errors.New("invalid string")
+var result string = ""
+var lastChar string = ""
+var counterNumber int = 0
 
 func Unpack(str string) (string, error) {
 	runeString := []rune(str)
-	result := ""
-	lastChar := ""
-	counterNumber := 0
 
 	for i := 1; i <= len(runeString); i++ {
 		nextSymbol := runeString[i-1 : i]
+		nextSymbolIsNumber := checkingForANumber(nextSymbol)
 
-		// Проверка на число
-		if _, err := strconv.Atoi(string(nextSymbol)); err == nil {
+		if nextSymbolIsNumber {
 			counterNumber++
 			if counterNumber > 1 {
 				return "", ErrInvalidString
@@ -27,7 +27,6 @@ func Unpack(str string) (string, error) {
 			}
 			if string(nextSymbol) == "0" {
 				result = result[:len(result)-1]
-				continue
 			}
 
 			repeat, _ := strconv.Atoi(string(nextSymbol))
@@ -47,4 +46,13 @@ func Unpack(str string) (string, error) {
 	}
 
 	return result, nil
+}
+
+// Проверка на число
+func checkingForANumber(symbol []rune) bool {
+	if _, err := strconv.Atoi(string(symbol)); err == nil {
+		return true
+	} else {
+		return false
+	}
 }
