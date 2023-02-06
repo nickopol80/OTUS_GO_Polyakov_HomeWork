@@ -19,10 +19,7 @@ func Unpack(str string) (string, error) {
 
 		if nextSymbolIsNumber {
 			counterNumber++
-			if counterNumber > 1 {
-				return "", ErrInvalidString
-			}
-			if lastChar == "" {
+			if counterNumber > 1 || lastChar == "" {
 				return "", ErrInvalidString
 			}
 			if string(nextSymbol) == "0" {
