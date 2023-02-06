@@ -23,7 +23,7 @@ func Unpack(str string) (string, error) {
 				return "", ErrInvalidString
 			}
 
-			result = checkInZerro(string(nextSymbol), result)
+			result = checkInZero(string(nextSymbol), result)
 			repeat, _ := strconv.Atoi(string(nextSymbol))
 			for ii := 1; ii < repeat; ii++ {
 				result += lastChar
@@ -43,7 +43,7 @@ func Unpack(str string) (string, error) {
 	return result, nil
 }
 
-func checkInZerro(s string, result string) string {
+func checkInZero(s string, result string) string {
 	if s == "0" {
 		return result[:len(result)-1]
 	}
