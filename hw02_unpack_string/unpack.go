@@ -17,13 +17,12 @@ func Unpack(str string) (string, error) {
 	// Посимвольно прогоняем всё слово.
 	for _, symbol := range str {
 		// Условие если буква.
-		if unicode.IsLetter(symbol) {
+		switch {
+		case unicode.IsLetter(symbol):
 			counterNumber = 0
 			lastChar = string(symbol)
 			result.WriteString(lastChar)
-
-			// Условие если не буква.
-		} else if unicode.IsNumber(symbol) {
+		case unicode.IsNumber(symbol):
 			counterNumber++
 			numberRepeat, _ := strconv.Atoi(string(symbol))
 
@@ -37,15 +36,15 @@ func Unpack(str string) (string, error) {
 			} else {
 				result.WriteString(strings.Repeat(lastChar, numberRepeat-1))
 			}
-		} else if unicode.IsSpace(symbol) {
+		case unicode.IsSpace(symbol):
 			lastChar = strings.ReplaceAll(strconv.QuoteRuneToGraphic(symbol), "'", "")
 			result.WriteString(lastChar)
-		} else {
+		default:
 			counterNumber = 0
 			lastChar = string(symbol)
 			result.WriteString(lastChar)
-		}
 
+		}
 	}
 
 	return result.String(), nil
