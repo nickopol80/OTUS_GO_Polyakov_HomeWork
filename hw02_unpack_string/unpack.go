@@ -3,58 +3,50 @@ package hw02unpackstring
 import (
 	"errors"
 	"strconv"
+	"strings"
+	"unicode"
 )
 
 var ErrInvalidString = errors.New("invalid string")
 
 func Unpack(str string) (string, error) {
-	runeString := []rune(str)
-	result := ""
 	lastChar := ""
+	var result strings.Builder
 	counterNumber := 0
 
-	for i := 1; i <= len(runeString); i++ {
-		nextSymbol := runeString[i-1 : i]
-		nextSymbolIsNumber := checkingForANumber(nextSymbol)
+	// Посимвольно прогоняем всё слово.
+	for _, symbol := range str {
+		// Условие если буква.
+		if unicode.IsLetter(symbol) {
+			counterNumber = 0
+			lastChar = string(symbol)
+			result.WriteString(string(lastChar))
 
-		if nextSymbolIsNumber {
+			// Условие если не буква.
+		} else if unicode.IsNumber(symbol) {
 			counterNumber++
+			numberRepeat, _ := strconv.Atoi(string(symbol))
+
 			if counterNumber > 1 || lastChar == "" {
 				return "", ErrInvalidString
+			} else if numberRepeat == 0 {
+				buf := result.String()
+				buf = strings.TrimSuffix(buf, string(lastChar))
+				result.Reset()
+				result.WriteString(buf)
+			} else {
+				result.WriteString(strings.Repeat(string(lastChar), numberRepeat-1))
 			}
-
-			result = checkInZero(string(nextSymbol), result)
-			repeat, _ := strconv.Atoi(string(nextSymbol))
-			for ii := 1; ii < repeat; ii++ {
-				result += lastChar
-			}
+		} else if unicode.IsSpace(symbol) {
+			lastChar = strings.ReplaceAll(strconv.QuoteRuneToGraphic(symbol), "'", "")
+			result.WriteString(lastChar)
 		} else {
 			counterNumber = 0
-			if nextSymbol[0] == '\n' {
-				lastChar = "\\n"
-				result += lastChar
-			} else {
-				lastChar = string(nextSymbol)
-				result += lastChar
-			}
+			lastChar = string(symbol)
+			result.WriteString(string(lastChar))
 		}
+
 	}
 
-	return result, nil
-}
-
-func checkInZero(s string, result string) string {
-	if s == "0" {
-		return result[:len(result)-1]
-	}
-	return result
-}
-
-// Проверка на число.
-func checkingForANumber(symbol []rune) bool {
-	if _, err := strconv.Atoi(string(symbol)); err == nil {
-		return true
-	}
-
-	return false
+	return result.String(), nil
 }
