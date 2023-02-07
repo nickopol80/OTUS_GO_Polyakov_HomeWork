@@ -43,7 +43,6 @@ func Unpack(str string) (string, error) {
 			counterNumber = 0
 			lastChar = string(symbol)
 			result.WriteString(lastChar)
-
 		}
 	}
 
