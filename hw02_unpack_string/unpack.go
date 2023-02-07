@@ -26,16 +26,18 @@ func Unpack(str string) (string, error) {
 			counterNumber++
 			numberRepeat, _ := strconv.Atoi(string(symbol))
 
-			if counterNumber > 1 || lastChar == "" {
+			switch {
+			case counterNumber > 1 || lastChar == "":
 				return "", ErrInvalidString
-			} else if numberRepeat == 0 {
+			case numberRepeat == 0:
 				buf := result.String()
 				buf = strings.TrimSuffix(buf, lastChar)
 				result.Reset()
 				result.WriteString(buf)
-			} else {
+			default:
 				result.WriteString(strings.Repeat(lastChar, numberRepeat-1))
 			}
+
 		case unicode.IsSpace(symbol):
 			lastChar = strings.ReplaceAll(strconv.QuoteRuneToGraphic(symbol), "'", "")
 			result.WriteString(lastChar)
