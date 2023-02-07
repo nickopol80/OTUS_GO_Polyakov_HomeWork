@@ -20,7 +20,7 @@ func Unpack(str string) (string, error) {
 		if unicode.IsLetter(symbol) {
 			counterNumber = 0
 			lastChar = string(symbol)
-			result.WriteString(string(lastChar))
+			result.WriteString(lastChar)
 
 			// Условие если не буква.
 		} else if unicode.IsNumber(symbol) {
@@ -31,11 +31,11 @@ func Unpack(str string) (string, error) {
 				return "", ErrInvalidString
 			} else if numberRepeat == 0 {
 				buf := result.String()
-				buf = strings.TrimSuffix(buf, string(lastChar))
+				buf = strings.TrimSuffix(buf, lastChar)
 				result.Reset()
 				result.WriteString(buf)
 			} else {
-				result.WriteString(strings.Repeat(string(lastChar), numberRepeat-1))
+				result.WriteString(strings.Repeat(lastChar, numberRepeat-1))
 			}
 		} else if unicode.IsSpace(symbol) {
 			lastChar = strings.ReplaceAll(strconv.QuoteRuneToGraphic(symbol), "'", "")
@@ -43,7 +43,7 @@ func Unpack(str string) (string, error) {
 		} else {
 			counterNumber = 0
 			lastChar = string(symbol)
-			result.WriteString(string(lastChar))
+			result.WriteString(lastChar)
 		}
 
 	}
