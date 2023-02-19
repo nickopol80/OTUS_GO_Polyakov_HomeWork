@@ -15,7 +15,7 @@ func Top10(str string) []string {
 	words := strings.Fields(str)
 	counterWordsMap := make(map[string]int)
 
-	// Подсчёт повторяющихся слов
+	// Подсчёт повторяющихся слов.
 	for _, word := range words {
 		_, matched := counterWordsMap[word]
 		if matched {
@@ -25,23 +25,23 @@ func Top10(str string) []string {
 		}
 	}
 
-	//Перегоняю полученную статистику в слайс
+	// Перегоняю полученную статистику в слайс.
 	var resultRating []stringEntity
 	for str, num := range counterWordsMap {
 		resultRating = append(resultRating, stringEntity{str, num})
 	}
 
-	// Сортировка в алфавитном порядке
+	// Сортировка в алфавитном порядке.
 	sort.SliceStable(resultRating, func(i, j int) bool {
 		return resultRating[i].Word < resultRating[j].Word
 	})
 
-	// Сортировка по убыванию количества повторов
+	// Сортировка по убыванию количества повторов.
 	sort.SliceStable(resultRating, func(i, j int) bool {
 		return resultRating[i].Repetitions > resultRating[j].Repetitions
 	})
 
-	//Формирование ответа
+	// Формирование ответа.
 	result := []string{}
 	counter := 10
 	for _, entity := range resultRating {
