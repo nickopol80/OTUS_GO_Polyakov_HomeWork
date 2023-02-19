@@ -19,7 +19,7 @@ func Top10(str string) []string {
 	for _, word := range words {
 		_, matched := counterWordsMap[word]
 		if matched {
-			counterWordsMap[word] += 1
+			counterWordsMap[word]++
 		} else {
 			counterWordsMap[word] = 1
 		}
@@ -47,7 +47,7 @@ func Top10(str string) []string {
 	for _, entity := range resultRating {
 		if counter > 0 {
 			result = append(result, entity.Word)
-			counter -= 1
+			counter--
 		} else {
 			return result
 		}
