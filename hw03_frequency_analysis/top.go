@@ -26,7 +26,7 @@ func Top10(str string) []string {
 	}
 
 	// Перегоняю полученную статистику в слайс.
-	var resultRating []stringEntity
+	resultRating := []stringEntity{}
 	for str, num := range counterWordsMap {
 		resultRating = append(resultRating, stringEntity{str, num})
 	}
