@@ -47,7 +47,7 @@ func Top10(str string) []string {
 	for _, entity := range resultRating {
 		if counter > 0 {
 			result = append(result, entity.Word)
-			counter--
+			counter -= 1
 		} else {
 			return result
 		}
