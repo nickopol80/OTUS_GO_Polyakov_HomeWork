@@ -11,6 +11,12 @@ var taskWithAsteriskIsCompleted = false
 
 var smallText = "cat and dog, one dog,two cats and one man"
 
+var textAboutSort = `Sort sorts data in ascending order as determined by the Less method.
+	It makes one call to data.Len to determine n and O(n*log(n)) calls to data.Less and data.Swap. 
+	The sort is not guaranteed to be stable.`
+
+var textWithSymbols = `#№Х{} . 923423,e ... @ !! . 923423,e *&$872, ***, . *** *** -+$$$ #№Х{} [] !! #№Х{} .`
+
 var text = `Как видите, он  спускается  по  лестнице  вслед  за  своим
 	другом   Кристофером   Робином,   головой   вниз,  пересчитывая
 	ступеньки собственным затылком:  бум-бум-бум.  Другого  способа
@@ -61,6 +67,38 @@ func TestTop10(t *testing.T) {
 			"man",     // 1
 		}
 		require.Equal(t, expected, Top10(smallText))
+	})
+
+	t.Run("Test text About Sort", func(t *testing.T) {
+		expected := []string{
+			"to",
+			"and",
+			"It",
+			"Less",
+			"O(n*log(n))",
+			"Sort",
+			"The",
+			"as",
+			"ascending",
+			"be",
+		}
+		require.Equal(t, expected, Top10(textAboutSort))
+	})
+
+	t.Run("Test text With Symbols", func(t *testing.T) {
+		expected := []string{
+			".",
+			"#№Х{}",
+			"!!",
+			"***",
+			"923423,e",
+			"*&$872,",
+			"***,",
+			"-+$$$",
+			"...",
+			"@",
+		}
+		require.Equal(t, expected, Top10(textWithSymbols))
 	})
 
 	t.Run("positive test", func(t *testing.T) {

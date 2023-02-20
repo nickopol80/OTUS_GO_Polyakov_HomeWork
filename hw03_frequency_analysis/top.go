@@ -17,28 +17,24 @@ func Top10(str string) []string {
 
 	// Подсчёт повторяющихся слов.
 	for _, word := range words {
-		_, matched := counterWordsMap[word]
-		if matched {
-			counterWordsMap[word]++
-		} else {
-			counterWordsMap[word] = 1
-		}
+		counterWordsMap[word]++
 	}
+
+	// Создаю новый слайс с заданнной длиной.
+	resultRating := make([]stringEntity, len(counterWordsMap))
 
 	// Перегоняю полученную статистику в слайс.
-	resultRating := []stringEntity{}
 	for str, num := range counterWordsMap {
-		resultRating = append(resultRating, stringEntity{str, num})
+		resultRating = append(resultRating[1:], stringEntity{str, num})
 	}
 
-	// Сортировка в алфавитном порядке.
-	sort.SliceStable(resultRating, func(i, j int) bool {
-		return resultRating[i].Word < resultRating[j].Word
-	})
+	// Сортировка.
+	sort.Slice(resultRating, func(i, j int) bool {
+		if resultRating[i].Repetitions != resultRating[j].Repetitions {
+			return resultRating[i].Repetitions > resultRating[j].Repetitions
+		}
 
-	// Сортировка по убыванию количества повторов.
-	sort.SliceStable(resultRating, func(i, j int) bool {
-		return resultRating[i].Repetitions > resultRating[j].Repetitions
+		return resultRating[i].Word < resultRating[j].Word
 	})
 
 	// Формирование ответа.
